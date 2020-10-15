@@ -174,3 +174,6 @@ if __name__ == "__main__":
     print "Machines, Cores, InputFraction, Partitions, Weight"
     for expt in expts:
         print "%d, %d, %f, %d, %f" % (expt[2], expt[2] * args.cores_per_mc, expt[1], expt[0], expt[3])
+
+    for expt in expts:
+        print "run_lr %d %f" % (expt[2] * args.cores_per_mc, expt[1])

@@ -15,13 +15,17 @@ class Predictor(object):
     self.training_data.extend(training_data_in)
     if data_file:
       with open(data_file, 'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=' ')
+        reader = csv.reader(csvfile, delimiter='\n')
         for row in reader:
           if row[0][0] != '#':
+            row[0] = row[0].replace(" ", "")
+            #print(row[0])
+            #parts = [x.strip() for x in row[0].split(',')]
             parts = row[0].split(',')
-            mc = int(parts[0])
-            scale = float(parts[1])
-            time = float(parts[2])
+            #print(parts)
+            mc = int(parts[1])
+            scale = float(parts[4])
+            time = float(parts[6])
             self.training_data.append([mc, scale, time])
 
   def add(self, mcs, input_fraction, time):
@@ -76,7 +80,7 @@ if __name__ == "__main__":
 
   model = pred.fit()
   
-  test_data = [[i, 1.0] for i in xrange(4, 64, 4)]
+  test_data = [[i, 1.0] for i in xrange(4, 132, 4)]
 
   predicted_times = pred.predict_all(test_data)
   print

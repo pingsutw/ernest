@@ -24,7 +24,8 @@ if __name__ == "__main__":
     sqlContext = SQLContext(sc)
 
     # Load training data
-    training = sqlContext.read.format("libsvm").load("s3n://ernest-data/rcv1_test_256.binary")
+    training = sqlContext.read.format("libsvm").load("file:///home/submarine/data")
+    print "partition number :", training.rdd.getNumPartitions()
     training = training.sample(False, sample_frac).coalesce(num_parts)
     training.cache().count()
 
@@ -35,4 +36,6 @@ if __name__ == "__main__":
     lrModel = lr.fit(training)
     end = time.time()
 
-    print "LR sample: ", sample_frac, " took ", (end-start)
+    print "LR,sample,", sample_frac," ,took,", (end-start)
+    #print "LR sample fraction",sample_frac,"partition",num_parts,"took", (end-start)
+    #print sample_frac, "," , (end-start)
