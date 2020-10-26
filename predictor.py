@@ -26,6 +26,7 @@ class Predictor(object):
             mc = int(parts[1])
             scale = float(parts[4])
             time = float(parts[6])
+            print mc, scale, time
             self.training_data.append([mc, scale, time])
 
   def add(self, mcs, input_fraction, time):
